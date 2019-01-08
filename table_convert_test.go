@@ -55,7 +55,7 @@ func TestTableConvert(t *testing.T) {
 
 	tables := getTables()
 	for index := range tables{
-		err := tc.Convert(tables[index],tables[index],"testStruct","testStruct/" + tables[index] + ".go")
+		err := tc.Convert(tables[index],sql_to_struct.CamelString(tables[index]),"testStruct","testStruct/" + sql_to_struct.CamelString(tables[index]) + ".go")
 		if err != nil{
 			t.Error(err)
 			break
