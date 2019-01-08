@@ -26,11 +26,8 @@ type SqlConvert struct {
 }
 
 func (sc *SqlConvert) createTable () error {
-	UUID,err := uuid.NewV4()
+	UUID := uuid.NewV4()
 	sc.convertTable = "tmp" + strings.Replace(UUID.String(),"-","_",4)
-	if err != nil{
-		return err
-	}
 	sql := fmt.Sprintf("CREATE TABLE  %s.%s AS (%s)",sc.ConvertDbDatabase,sc.convertTable,sc.SqlString)
 	db, err := gorm.Open("mysql", fmt.Sprintf(
 		"%s:%s@tcp(%s:%d)/%s?charset=utf8&parseTime=True&loc=Local",
@@ -40,6 +37,9 @@ func (sc *SqlConvert) createTable () error {
 		sc.DbPort,
 		sc.DbDatabase))
 	defer db.Close()
+	if err != nil{
+		return err
+	}
 	db.Raw(sql).Row()
 	return db.Error
 }

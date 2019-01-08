@@ -1,0 +1,11 @@
+language: go
+addons:
+  mariadb: '10.1'
+go:
+  - tip
+before_install:
+  - go get github.com/mattn/goveralls
+  - go get golang.org/x/tools/cmd/cover
+  - mysql < tests/mariadb.sql
+script:
+  - $HOME/gopath/bin/goveralls -service=travis-ci
