@@ -44,7 +44,7 @@ func getTables() []string {
 	return tables
 }
 
-func TestConvert(t *testing.T) {
+func TestTableConvert(t *testing.T) {
 	tc := sql_to_struct.TableConvert{
 		DbDatabase:dbDatabase,
 		DbHost:dbHost,
@@ -60,5 +60,26 @@ func TestConvert(t *testing.T) {
 			t.Error(err)
 			break
 		}
+	}
+}
+
+func TestSqlConvert(t *testing.T) {
+	sql := "SELECT g_name,g_man,g_address FROM viooma_guest"
+	sc := sql_to_struct.SqlConvert{
+		SqlString:sql,
+		DbDatabase:dbDatabase,
+		DbHost:dbHost,
+		DbPassword:dbPassword,
+		DbPort:dbPort,
+		DbUser:dbUser,
+		ConvertDbDatabase:"qing",
+		ConvertDbHost:dbHost,
+		ConvertDbPassword:dbPassword,
+		ConvertDbPort:dbPort,
+		ConvertDbUser:dbUser,
+	}
+	err := sc.Convert("TestSqlStruct","testStruct","testStruct/TestSqlStruct.go")
+	if err != nil{
+		t.Error(err)
 	}
 }
