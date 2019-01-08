@@ -10,7 +10,7 @@ func WriteFile(filePath string, content []byte) error {
 	return ioutil.WriteFile(filePath, content, 0666)
 }
 
-//XxYy to xx_yy , XxYY to xx_yy
+//驼峰转蛇形
 func SnakeString(s string) string {
 	data := make([]byte, 0, len(s)*2)
 	j := false
@@ -28,7 +28,7 @@ func SnakeString(s string) string {
 	return strings.ToLower(string(data[:]))
 }
 
-//xx_yy to XxYy
+//蛇形转驼峰
 func CamelString(s string) string {
 	data := make([]byte, 0, len(s))
 	j := false
